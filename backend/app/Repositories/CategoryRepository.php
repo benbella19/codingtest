@@ -5,7 +5,7 @@ use App\Models\Category;
 
 class CategoryRepository {
     public function all() {
-        return Category::with('products')->get();
+        return Category::get();
     }
 
     public function create(array $data) {

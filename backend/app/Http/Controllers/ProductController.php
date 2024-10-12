@@ -18,10 +18,18 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $sortBy = $request->input('sort_by', 'name'); 
-        $products = $this->productService->listProducts($sortBy);
+        $perPage = $request->input('per_page', 10); 
+        $categoryId = $request->input('category_id'); 
+    
+        if ($categoryId) {
+            $products = $this->productService->listProductsByCategory($categoryId, $sortBy, $perPage);
+        } else {
+            $products = $this->productService->listProducts($sortBy, $perPage);
+        }
         
         return response()->json($products);
     }
+    
 
 
     public function store(Request $request)
@@ -32,6 +40,17 @@ class ProductController extends Controller
 
         return response()->json($product, 201); 
     }
+
+    public function show($id)
+    {
+        $product = $this->productService->findProductById($id); 
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+
+        return response()->json($product);
+    }
+
 
     public function destroy($id)
     {

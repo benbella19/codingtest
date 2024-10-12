@@ -19,7 +19,20 @@ class ProductService {
         return $this->productRepo->delete($id);
     }
 
-    public function listProducts($sortBy = 'name') {
-        return $this->productRepo->all($sortBy);
+    public function listProducts($sortBy = 'name', $perPage = 10)
+    {
+        return $this->productRepo->paginate($perPage, $sortBy);
     }
+
+    public function listProductsByCategory($categoryId, $sortBy = 'name', $perPage = 10)
+    {
+        return $this->productRepo->findByCategory($categoryId, $perPage, $sortBy);
+    }
+
+
+    public function findProductById($id)
+    {
+        return $this->productRepo->find($id); 
+    }
+
 }

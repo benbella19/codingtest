@@ -1,38 +1,70 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* styles.css */
+.product-list {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.product-card {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  padding: 15px;
+  width: calc(25% - 30px); /* Adjust width for 4 cards per row */
+  transition: transform 0.2s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.product-card:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.product-title {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.product-description {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.product-price {
+  color: #28a745;
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .product-card {
+      width: calc(50% - 30px); /* 2 cards per row on smaller screens */
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 480px) {
+  .product-card {
+      width: 100%; /* 1 card per row on mobile */
   }
+}
+/* styles.css */
+
+/* Styles for sorting and filtering */
+.sorting, .filtering {
+  margin: 20px 0;
+}
+
+.sorting label, .filtering label {
+  margin-right: 10px;
+}
+
+.sorting select, .filtering select {
+  padding: 5px;
 }
