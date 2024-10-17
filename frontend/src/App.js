@@ -9,11 +9,11 @@ function App() {
     <Router>
     <div>
       <Link to="/create-product">
-        <button className="add-product-button">Ajouter Produit</button>
+        <button className="add-product-button"> add product</button>
       </Link>
 
       <Link to="/">
-        <button className="add-product-button">List Produit</button>
+        <button className="add-product-button">products list</button>
       </Link>
       
       <Routes>
