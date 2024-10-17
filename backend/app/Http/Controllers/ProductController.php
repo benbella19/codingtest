@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\StoreProductRequest;
+
 
 class ProductController extends Controller
 {
@@ -15,7 +18,7 @@ class ProductController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $sortBy = $request->input('sort_by', 'name'); 
         $perPage = $request->input('per_page', 10); 
@@ -32,16 +35,25 @@ class ProductController extends Controller
     
 
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request): JsonResponse
     {
-       
 
-        $product = $this->productService->createProduct($request->all());
+        $validatedData = $request->validated();
+        
+        if ($request->hasFile('image')) {
+             $imageName = time().'.'.$request->image->extension();
+             $request->image->move(public_path('images'), $imageName); 
+             $validatedData['image'] = $imageName; 
+        }
+
+        $product = $this->productService->createProduct($validatedData);
 
         return response()->json($product, 201); 
     }
 
-    public function show($id)
+
+
+    public function show($id): JsonResponse
     {
         $product = $this->productService->findProductById($id); 
         if (!$product) {
@@ -52,7 +64,7 @@ class ProductController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $this->productService->deleteProduct($id);
         return response()->json(['message' => 'Product deleted successfully']);
